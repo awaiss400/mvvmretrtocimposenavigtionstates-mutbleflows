@@ -13,5 +13,6 @@ import com.stone.retromvvmgenerics.Recycler
 fun WordListUi(posts: List<Posts>) {
 Scaffold(Modifier.fillMaxSize()) {
     Recycler(posts = posts)
+
 }
 }

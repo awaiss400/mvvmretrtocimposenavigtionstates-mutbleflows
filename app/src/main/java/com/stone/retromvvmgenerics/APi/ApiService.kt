@@ -16,6 +16,6 @@ interface ApiService {
 @GET("/posts/1/comments")
     suspend fun GetPoststwo():List<Posts>
 
-    @POST("/posts")
-    suspend fun Postdata(@Body post: Posts):List<Posts>
+    @POST("posts")
+    suspend fun Postdata(@Body post: Posts):Response<Posts>
     }

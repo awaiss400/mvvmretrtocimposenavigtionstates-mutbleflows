@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import retrofit2.http.POST
 import javax.inject.Inject
 
@@ -21,8 +22,8 @@ class Myviewmodel @Inject constructor(val myrepository: Myrepository):ViewModel(
     val isError: StateFlow<Boolean> = _isError
     val _words = MutableStateFlow(emptyList<Posts>())
     val posts: StateFlow<List<Posts>> = _words
-    val _wordspost = MutableStateFlow(emptyList<Posts>())
-    val postsdata: StateFlow<List<Posts>> = _words
+    val _response = MutableStateFlow(emptyList<Response<Posts>>())
+    val response: MutableStateFlow<List<Response<Posts>>> = _response
 init {
     load()
 }
@@ -37,7 +38,8 @@ init {
         _isLoading.value = false
     }
     fun post(posts: Posts)=viewModelScope.launch {
-        _wordspost.value=myrepository.post(posts)
+       val resopnse =myrepository.post(posts)
+        _response.value= listOf(resopnse)
 
     }
 

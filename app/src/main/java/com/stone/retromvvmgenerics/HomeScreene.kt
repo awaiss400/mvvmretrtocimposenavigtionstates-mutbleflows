@@ -11,7 +11,7 @@ import com.stone.retromvvmgenerics.composables.WordListUi
 fun HomeScreen(viewModel:Myviewmodel) {
     val _words by viewModel.posts.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-    val postss by viewModel.postsdata.collectAsState()
+
     val isError by viewModel.isError.collectAsState()
 
     when {
