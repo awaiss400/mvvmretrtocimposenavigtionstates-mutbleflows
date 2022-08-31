@@ -18,7 +18,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Composable
 fun DataScren(viewModel: Myviewmodel,navController: NavController) {
-    val responses by viewModel.response.collectAsState()
+//    val responses by viewModel.response.collectAsState()
     var text1 by remember {
         mutableStateOf("")
     }
@@ -34,12 +34,12 @@ Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center, horizo
     }
     Button(onClick = {
         viewModel.post(Posts(1,15,text1,text2))
-//        navController.navigate(Screens.Home.route)
+        navController.navigate(Screens.Home.route)
     }) {
         Text(text = "Post data")
     }
 
-   Text(text = "$responses", fontSize = 20.sp)
+//   Text(text = "$responses", fontSize = 20.sp)
 }
 
 

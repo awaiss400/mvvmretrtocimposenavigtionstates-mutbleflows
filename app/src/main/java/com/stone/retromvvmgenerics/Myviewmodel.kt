@@ -20,18 +20,20 @@ class Myviewmodel @Inject constructor(val myrepository: Myrepository):ViewModel(
     val isLoading: StateFlow<Boolean> = _isLoading
     private val _isError = MutableStateFlow(false)
     val isError: StateFlow<Boolean> = _isError
-    val _words = MutableStateFlow(emptyList<Posts>())
+    val _words = MutableStateFlow(mutableListOf<Posts>())
+    val mydata=_words.value
+
     val posts: StateFlow<List<Posts>> = _words
-    val _response = MutableStateFlow(emptyList<Response<Posts>>())
-    val response: MutableStateFlow<List<Response<Posts>>> = _response
-init {
+//    val _response = MutableStateFlow(emptyList<Response<Posts>>())
+//    val response: MutableStateFlow<List<Response<Posts>>> = _response
+    init {
     load()
 }
 
     fun load() = viewModelScope.launch(Dispatchers.IO) {
         _isLoading.value = true
         try {
-        _words.value = myrepository.getdata()
+        _words.value = myrepository.getdata().toMutableList()
         }catch (e:Throwable){
             _isError.value=true
         }
@@ -39,7 +41,9 @@ init {
     }
     fun post(posts: Posts)=viewModelScope.launch {
        val resopnse =myrepository.post(posts)
-        _response.value= listOf(resopnse)
+        mydata.add(resopnse.body()!!)
+        _words.value=mydata
+//        _words.value=resopnse
 
     }
 
